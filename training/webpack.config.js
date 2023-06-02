@@ -1,19 +1,23 @@
+/* eslint-disable strict */
 const {resolve} = require('./utils');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const getReactPath = name =>
+  resolve(`../build/node_modules/${name}/umd/${name}.development.js`);
+
 module.exports = {
   mode: 'development',
   entry: './src/main.ts',
   output: {
     path: resolve('dist'),
   },
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: [
-          'ts-loader',
           {
             loader: 'babel-loader',
             options: {
@@ -36,10 +40,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      react: resolve('../build/node_modules/react/umd/react.development.js'),
-      'react-dom': resolve(
-        '../build/node_modules/react-dom/umd/react-dom.development.js'
-      ),
+      react: getReactPath('react'),
+      'react-dom': getReactPath('react-dom'),
     },
     extensions: ['.tsx', '.ts', '.js'],
   },

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "setup": "./setup.sh",
     "build": "webpack"
   },
   "keywords": [],
