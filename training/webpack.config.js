@@ -1,6 +1,5 @@
 /* eslint-disable strict */
 const {resolve} = require('./utils');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const getReactPath = name =>
@@ -8,9 +7,10 @@ const getReactPath = name =>
 
 module.exports = {
   mode: 'development',
-  entry: './src/main.ts',
+  entry: resolve('src/main.ts'),
   output: {
     path: resolve('dist'),
+    clean: true,
   },
   devtool: 'source-map',
   module: {
@@ -22,7 +22,13 @@ module.exports = {
             loader: 'babel-loader',
             options: {
               presets: [
-                '@babel/preset-react',
+                [
+                  '@babel/preset-react',
+                  {
+                      // runtime: 'automatic',
+                      development: true
+                  },
+              ],
                 [
                   '@babel/preset-typescript',
                   {
@@ -45,10 +51,15 @@ module.exports = {
     },
     extensions: ['.tsx', '.ts', '.js'],
   },
-  plugins: [
-    new HtmlWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin({
-      // Options...
-    }),
-  ],
+  plugins: [new HtmlWebpackPlugin()],
+  devServer: {
+    compress: true,
+    port: 9000,
+    proxy: {
+      '/api': 'http://localhost:3000',
+    },
+    open: false,
+    hot: false,
+    liveReload: false,
+  },
 };

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "setup": "./setup.sh",
+    "dev": "webpack server --config ./webpack.config.js",
     "build": "webpack"
   },
   "keywords": [],
@@ -15,7 +16,8 @@
     "@babel/preset-typescript": "^7.21.4",
     "html-webpack-plugin": "^5.5.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "webpack-dev-server": "^4.15.1"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.18.6",
